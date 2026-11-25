@@ -1,6 +1,16 @@
 import dotenv from 'dotenv';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Attempt to load server/.env first, then fallback to current working directory
+const serverEnvPath = path.resolve(__dirname, '../../.env');
+if (fs.existsSync(serverEnvPath)) {
+  dotenv.config({ path: serverEnvPath });
+}
 dotenv.config();
 
 export const ENV = {
@@ -11,4 +21,3 @@ export const ENV = {
   isDev: (process.env.NODE_ENV || 'development') === 'development',
   isProd: process.env.NODE_ENV === 'production',
 };
-
