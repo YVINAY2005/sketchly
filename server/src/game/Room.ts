@@ -1,12 +1,7 @@
 import { Server } from 'socket.io';
-import {
-  ClientToServerEvents,
-  GAME_CONSTANTS,
-  Player as IPlayer,
-  PublicRoomSummary,
-  RoomSettings,
-  ServerToClientEvents,
-} from '@sketchly/shared';
+import { GAME_CONSTANTS } from '../constants/game.js';
+import { Player as IPlayer, PublicRoomSummary, RoomSettings } from '../types/index.js';
+import { ClientToServerEvents, ServerToClientEvents } from '../socket/events.js';
 import { Player } from './Player.js';
 import { Game } from './Game.js';
 import { RoomModel } from '../models/RoomModel.js';
@@ -356,3 +351,4 @@ export class Room {
     };
   }
 }
+

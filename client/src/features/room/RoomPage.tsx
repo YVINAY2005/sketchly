@@ -7,7 +7,7 @@ import {
   Player,
   RoomSettings,
   RoundResult,
-} from '@sketchly/shared';
+} from '../../types';
 import { socket } from '../../services/socket';
 import { sound } from '../../services/audio';
 import { LobbyView } from '../lobby/LobbyView';
@@ -382,3 +382,4 @@ export const RoomPage: React.FC = () => {
     </div>
   );
 };
+

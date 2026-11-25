@@ -1,6 +1,6 @@
 import React from 'react';
 import { Check, Paintbrush } from 'lucide-react';
-import { Player } from '@sketchly/shared';
+import { Player } from '../../types';
 import { Avatar } from '../../components/common/Avatar';
 
 export interface PlayerSidebarProps {
@@ -100,3 +100,4 @@ export const PlayerSidebar: React.FC<PlayerSidebarProps> = ({
     </div>
   );
 };
+

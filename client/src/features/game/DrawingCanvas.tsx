@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react';
-import { Point, Stroke } from '@sketchly/shared';
+import { Point, Stroke } from '../../types';
 import { socket } from '../../services/socket';
 
 export interface DrawingCanvasProps {
@@ -378,3 +378,4 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
     </div>
   );
 };
+

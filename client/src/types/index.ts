@@ -74,8 +74,8 @@ export interface GameStateSnapshot {
   category: string;
   timeRemaining: number;
   totalDrawTime: number;
-  selectedWord: string | null; // Sanitized: null for non-drawers unless round ended
-  wordChoices: string[] | null; // Only populated for the active drawer during WORD_SELECTION
+  selectedWord: string | null;
+  wordChoices: string[] | null;
   hintsRevealed: number;
 }
 

@@ -11,7 +11,7 @@ import {
   Shield,
   Layers,
 } from 'lucide-react';
-import { Player, RoomSettings } from '@sketchly/shared';
+import { Player, RoomSettings } from '../../types';
 import { Button } from '../../components/common/Button';
 import { Avatar } from '../../components/common/Avatar';
 import { Badge } from '../../components/common/Badge';
@@ -382,3 +382,4 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
     </div>
   );
 };
+

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Settings as SettingsIcon } from 'lucide-react';
-import { RoomSettings, WORD_CATEGORIES, WordMode } from '@sketchly/shared';
+import { RoomSettings, WordMode } from '../../types';
+import { WORD_CATEGORIES } from '../../constants/game';
 import { Button } from '../../components/common/Button';
 import { Navbar } from '../../components/layout/Navbar';
 import { Footer } from '../../components/layout/Footer';

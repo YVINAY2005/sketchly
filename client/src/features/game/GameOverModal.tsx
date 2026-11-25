@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { GameWinner } from '@sketchly/shared';
+import { GameWinner } from '../../types';
 import { Modal } from '../../components/common/Modal';
 import { Button } from '../../components/common/Button';
 import { Avatar } from '../../components/common/Avatar';
@@ -32,7 +32,7 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
           spread: 70,
           origin: { y: 0.6 },
         });
-      } catch {}
+      } catch { }
     }
   }, [isOpen]);
 

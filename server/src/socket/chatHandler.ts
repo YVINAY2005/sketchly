@@ -1,5 +1,6 @@
 import { Socket } from 'socket.io';
-import { ChatMessage, GAME_CONSTANTS } from '@sketchly/shared';
+import { GAME_CONSTANTS } from '../constants/game.js';
+import { ChatMessage } from '../types/index.js';
 import { Room } from '../game/Room.js';
 
 export class ChatHandler {
@@ -137,3 +138,4 @@ export class ChatHandler {
     });
   }
 }
+

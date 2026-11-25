@@ -39,3 +39,4 @@ const GameSessionSchema = new Schema<IGameSessionDoc>({
 });
 
 export const GameSessionModel = mongoose.model<IGameSessionDoc>('GameSession', GameSessionSchema);
+

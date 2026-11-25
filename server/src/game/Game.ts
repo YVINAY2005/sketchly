@@ -1,5 +1,5 @@
+import { GAME_CONSTANTS } from '../constants/game.js';
 import {
-  GAME_CONSTANTS,
   GamePhase,
   GameStateSnapshot,
   GameWinner,
@@ -9,7 +9,7 @@ import {
   RoundResult,
   RoundScoreEntry,
   Stroke,
-} from '@sketchly/shared';
+} from '../types/index.js';
 import { Player } from './Player.js';
 import { WordService } from '../services/wordService.js';
 import { GameSessionModel } from '../models/GameSessionModel.js';
@@ -602,3 +602,4 @@ export class Game {
     }
   }
 }
+

@@ -1,4 +1,4 @@
-import { WORD_DATASET, WordEntry } from '@sketchly/shared';
+import { WORD_DATASET, WordEntry } from '../data/words.js';
 
 export class WordService {
   /**
@@ -101,3 +101,4 @@ export class WordService {
     return dist === 1;
   }
 }
+

@@ -43,36 +43,46 @@ Sketchly is a production-quality, server-authoritative multiplayer drawing and g
 
 ---
 
-## 🏗️ Architecture & Monorepo Structure
+## 🏗️ Architecture & Directory Structure
 
-Sketchly is organized as a clean ES Module (ESM) monorepo:
+Sketchly is organized around two application packages (`client/` and `server/`):
 
 ```
 sketchly/
-├── shared/                     # Shared types, events, constants & words
-│   ├── src/
-│   │   ├── types.ts            # Domain entities (Player, Room, Stroke, GameState)
-│   │   ├── events.ts           # Strongly-typed Socket.IO client/server events
-│   │   ├── constants.ts        # Game rules, palette, scoring parameters
-│   │   └── words.ts            # 250+ Categorized words dataset
 ├── server/                     # Node.js + Express + Socket.IO + Mongoose
 │   ├── src/
 │   │   ├── config/             # Environment configuration (env.ts)
+│   │   ├── constants/          # Game & scoring constants (game.ts)
+│   │   ├── data/               # 250+ Categorized words dataset (words.ts)
+│   │   ├── types/              # Backend domain types & interfaces
 │   │   ├── models/             # Mongoose schemas (RoomModel, GameSessionModel)
 │   │   ├── game/               # OOP Game Engine
 │   │   │   ├── Player.ts       # Player entity & round score tracker
 │   │   │   ├── Game.ts         # Turn machine, timer, strokes, hint engine
 │   │   │   ├── Room.ts         # Room roster, host authority, socket bridge
 │   │   │   └── GameManager.ts  # Room registry, room code generator, cleanup
-│   │   ├── socket/             # Socket routing & handler classes
+│   │   ├── socket/             # Socket routing, events & handler classes
+│   │   │   ├── events.ts       # Server Socket.IO typed contracts
 │   │   │   ├── drawHandler.ts  # Stroke validation, undo, clear
 │   │   │   ├── chatHandler.ts  # Guess normalization & proximity check
 │   │   │   └── socketHandler.ts# Connection lifecycle & event dispatch
 │   │   ├── routes/             # REST API (/api/health, /api/rooms)
-│   │   └── server.ts           # Express HTTP + Socket.IO bootstrap
+│   │   └── server.ts           # Express HTTP + Socket.IO bootstrap & static serving
 │   └── tests/                  # Unit and integration test suite
 └── client/                     # React 18 + Vite + TypeScript + Tailwind CSS
     └── src/
+        ├── components/         # Reusable primitives (Button, Modal, Input, Avatar)
+        ├── constants/          # Frontend UI constants, colors & palette (game.ts)
+        ├── types/              # Frontend domain & view types
+        ├── socket/             # Client Socket.IO typed contracts (events.ts)
+        ├── features/
+        │   ├── home/           # Landing, Room code input, Public rooms
+        │   ├── create/         # Room settings configuration form
+        │   ├── lobby/          # Roster, ready up, invite copy, host controls
+        │   └── game/           # Canvas, DrawingToolbar, Sidebar, Header, Chat, Modals
+        ├── services/           # Socket client & Web Audio synthesizer
+        └── utils/              # Coordinate transforms
+```
         ├── components/         # Reusable primitives (Button, Modal, Input, Avatar)
         ├── features/
         │   ├── home/           # Landing, Room code input, Public rooms
@@ -157,12 +167,7 @@ cd game
 npm install
 ```
 
-### 2. Build Shared Package
-```bash
-npm run build --workspace=shared
-```
-
-### 3. Start Development Servers
+### 2. Start Development Servers
 ```bash
 # Runs backend on http://localhost:3001 and Vite frontend on http://localhost:5173
 npm run dev
@@ -255,3 +260,4 @@ Access the application at [http://localhost:3001](http://localhost:3001).
    - If a drawer leaves mid-round, the server automatically ends the turn safely, tallies scores, and rotates to the next drawer.
    - If the host disconnects, host authority is migrated to the next connected player.
    - If a player refreshes, their session token rebinds their socket connection without disrupting match state.
+

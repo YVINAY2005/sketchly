@@ -1,6 +1,6 @@
 import React from 'react';
 import { Undo2, Trash2, Eraser, Paintbrush } from 'lucide-react';
-import { BRUSH_SIZES, DEFAULT_PALETTE } from '@sketchly/shared';
+import { BRUSH_SIZES, DEFAULT_PALETTE } from '../../constants/game';
 import { socket } from '../../services/socket';
 
 export interface DrawingToolbarProps {
@@ -172,3 +172,4 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
     </div>
   );
 };
+

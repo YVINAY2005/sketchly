@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { ClientToServerEvents, ServerToClientEvents } from '@sketchly/shared';
+import { ClientToServerEvents, ServerToClientEvents } from '../socket/events';
 
 // Determine backend URL
 // In development with Vite proxy, connecting to window.location.origin connects through proxy.
@@ -20,3 +20,4 @@ export const socket: AppSocket = io(SERVER_URL, {
   reconnectionDelayMax: 5000,
   transports: ['websocket', 'polling'],
 });
+

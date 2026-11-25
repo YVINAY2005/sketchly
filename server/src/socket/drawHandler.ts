@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { Point, Stroke } from '@sketchly/shared';
+import { Point, Stroke } from '../types/index.js';
 import { Room } from '../game/Room.js';
 
 export class DrawHandler {
@@ -131,3 +131,4 @@ export class DrawHandler {
     });
   }
 }
+

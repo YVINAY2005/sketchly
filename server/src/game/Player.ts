@@ -1,4 +1,4 @@
-import { Player as IPlayer } from '@sketchly/shared';
+import { Player as IPlayer } from '../types/index.js';
 
 export class Player {
   public id: string;
@@ -56,3 +56,4 @@ export class Player {
     };
   }
 }
+

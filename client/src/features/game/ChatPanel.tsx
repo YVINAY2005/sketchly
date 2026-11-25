@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import { ChatMessage } from '@sketchly/shared';
+import { ChatMessage } from '../../types';
 import { socket } from '../../services/socket';
 
 export interface ChatPanelProps {
@@ -116,8 +116,8 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
               isDrawer && isDrawingPhase
                 ? 'You are drawing! You cannot guess.'
                 : hasGuessed
-                ? 'You guessed the word!'
-                : 'Type your guess here...'
+                  ? 'You guessed the word!'
+                  : 'Type your guess here...'
             }
             maxLength={140}
             className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 pr-10 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 disabled:bg-slate-100 disabled:opacity-60 transition-colors"

@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { Game } from '../src/game/Game.js';
 import { Player } from '../src/game/Player.js';
 import { WordService } from '../src/services/wordService.js';
-import { RoomSettings } from '@sketchly/shared';
+import { RoomSettings } from '../src/types/index.js';
 
 describe('WordService', () => {
   it('normalizes string correctly (trim, lowercase, multiple spaces)', () => {
@@ -170,3 +170,4 @@ describe('Game Engine State Machine', () => {
     expect(game.strokes.length).toBe(0);
   });
 });
+

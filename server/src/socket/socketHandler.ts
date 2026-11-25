@@ -1,9 +1,6 @@
 import { Server, Socket } from 'socket.io';
-import {
-  ClientToServerEvents,
-  GAME_CONSTANTS,
-  ServerToClientEvents,
-} from '@sketchly/shared';
+import { GAME_CONSTANTS } from '../constants/game.js';
+import { ClientToServerEvents, ServerToClientEvents } from './events.js';
 import { GameManager } from '../game/GameManager.js';
 import { DrawHandler } from './drawHandler.js';
 import { ChatHandler } from './chatHandler.js';
@@ -178,3 +175,4 @@ export function setupSocketHandlers(
     });
   });
 }
+

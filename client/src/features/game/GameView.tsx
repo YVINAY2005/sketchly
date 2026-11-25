@@ -5,7 +5,7 @@ import {
   GameWinner,
   Player,
   RoundResult,
-} from '@sketchly/shared';
+} from '../../types';
 import { GameHeader } from './GameHeader';
 import { DrawingCanvas } from './DrawingCanvas';
 import { DrawingToolbar } from './DrawingToolbar';

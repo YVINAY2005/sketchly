@@ -33,22 +33,3 @@ export const GAME_CONSTANTS = {
   FIRST_GUESSER_BONUS: 50,
   DRAWER_BONUS_PER_GUESS: 40,
 } as const;
-
-export const DEFAULT_PALETTE = [
-  '#000000', // Black
-  '#ffffff', // White
-  '#64748b', // Slate
-  '#ef4444', // Red
-  '#f97316', // Orange
-  '#f59e0b', // Amber
-  '#84cc16', // Lime
-  '#10b981', // Emerald
-  '#06b6d4', // Cyan
-  '#3b82f6', // Blue
-  '#6366f1', // Indigo
-  '#a855f7', // Purple
-  '#ec4899', // Pink
-  '#78350f', // Brown
-] as const;
-
-export const BRUSH_SIZES = [2, 5, 10, 20, 35] as const;

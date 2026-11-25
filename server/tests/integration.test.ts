@@ -3,7 +3,7 @@ import { createServer, Server as HttpServer } from 'http';
 import { Server } from 'socket.io';
 import { io as ClientIO, Socket as ClientSocket } from 'socket.io-client';
 import express from 'express';
-import { ClientToServerEvents, ServerToClientEvents } from '@sketchly/shared';
+import { ClientToServerEvents, ServerToClientEvents } from '../src/socket/events.js';
 import { setupSocketHandlers } from '../src/socket/socketHandler.js';
 
 type TestSocket = ClientSocket<ServerToClientEvents, ClientToServerEvents>;

@@ -6,7 +6,6 @@ WORKDIR /app
 
 # Copy root and workspace manifests
 COPY package*.json ./
-COPY shared/package*.json ./shared/
 COPY server/package*.json ./server/
 COPY client/package*.json ./client/
 
@@ -14,11 +13,10 @@ COPY client/package*.json ./client/
 RUN npm ci
 
 # Copy source trees
-COPY shared ./shared
 COPY server ./server
 COPY client ./client
 
-# Build shared, server, and client
+# Build server and client
 RUN npm run build
 
 # --- Production Runner Stage ---
@@ -31,7 +29,6 @@ ENV PORT=3001
 
 # Copy root manifests
 COPY package*.json ./
-COPY shared/package*.json ./shared/
 COPY server/package*.json ./server/
 COPY client/package*.json ./client/
 
@@ -39,10 +36,10 @@ COPY client/package*.json ./client/
 RUN npm ci --omit=dev
 
 # Copy compiled outputs
-COPY --from=builder /app/shared/dist ./shared/dist
 COPY --from=builder /app/server/dist ./server/dist
 COPY --from=builder /app/client/dist ./client/dist
 
 EXPOSE 3001
 
 CMD ["node", "server/dist/server.js"]
+

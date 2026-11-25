@@ -1,5 +1,5 @@
 import React from 'react';
-import { RoundResult } from '@sketchly/shared';
+import { RoundResult } from '../../types';
 import { Modal } from '../../components/common/Modal';
 import { Badge } from '../../components/common/Badge';
 import { Check, ArrowRight } from 'lucide-react';

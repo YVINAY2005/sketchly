@@ -1,6 +1,6 @@
 import React from 'react';
 import { Timer, Sparkles } from 'lucide-react';
-import { GameStateSnapshot } from '@sketchly/shared';
+import { GameStateSnapshot } from '../../types';
 import { Badge } from '../../components/common/Badge';
 
 export interface GameHeaderProps {
@@ -91,3 +91,4 @@ export const GameHeader: React.FC<GameHeaderProps> = ({
     </div>
   );
 };
+

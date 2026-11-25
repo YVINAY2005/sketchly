@@ -1,10 +1,6 @@
 import { Server } from 'socket.io';
-import {
-  ClientToServerEvents,
-  PublicRoomSummary,
-  RoomSettings,
-  ServerToClientEvents,
-} from '@sketchly/shared';
+import { PublicRoomSummary, RoomSettings } from '../types/index.js';
+import { ClientToServerEvents, ServerToClientEvents } from '../socket/events.js';
 import { Room, TypedServer } from './Room.js';
 
 export class GameManager {
@@ -134,3 +130,4 @@ export class GameManager {
     };
   }
 }
+

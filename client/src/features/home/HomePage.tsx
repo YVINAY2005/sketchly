@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlusCircle, Sparkles, Users, Globe } from 'lucide-react';
-import { PublicRoomSummary } from '@sketchly/shared';
+import { PublicRoomSummary } from '../../types';
 import { Button } from '../../components/common/Button';
 import { Input } from '../../components/common/Input';
 import { AvatarPicker, Avatar } from '../../components/common/Avatar';

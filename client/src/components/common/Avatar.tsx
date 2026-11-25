@@ -74,3 +74,4 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({ selected, onSelect }
     </div>
   );
 };
+

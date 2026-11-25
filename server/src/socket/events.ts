@@ -7,7 +7,7 @@ import {
   RoomSettings,
   RoundResult,
   Stroke,
-} from './types.js';
+} from '../types/index.js';
 
 export interface ClientToServerEvents {
   // Room management

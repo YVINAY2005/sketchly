@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { RoomSettings } from '@sketchly/shared';
+import { RoomSettings } from '../types/index.js';
 
 export interface IRoomDoc extends Document {
   roomCode: string;
@@ -28,3 +28,4 @@ const RoomSchema = new Schema<IRoomDoc>({
 });
 
 export const RoomModel = mongoose.model<IRoomDoc>('Room', RoomSchema);
+
