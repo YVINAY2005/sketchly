@@ -233,7 +233,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
 
     try {
       e.currentTarget.releasePointerCapture(e.pointerId);
-    } catch {}
+    } catch { }
 
     const lastStroke = strokesRef.current[strokesRef.current.length - 1];
     if (lastStroke && onStrokeRecorded) {

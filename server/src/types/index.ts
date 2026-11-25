@@ -114,3 +114,4 @@ export interface PublicRoomSummary {
   totalRounds: number;
   isPublic: boolean;
 }
+

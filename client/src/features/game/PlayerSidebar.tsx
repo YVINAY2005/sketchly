@@ -34,15 +34,14 @@ export const PlayerSidebar: React.FC<PlayerSidebarProps> = ({
           return (
             <div
               key={player.id}
-              className={`flex items-center justify-between p-2 rounded-xl transition-all ${
-                player.hasGuessedCorrectly
+              className={`flex items-center justify-between p-2 rounded-xl transition-all ${player.hasGuessedCorrectly
                   ? 'bg-emerald-50 border border-emerald-200/80'
                   : isDrawer
-                  ? 'bg-brand-50 border border-brand-200/80'
-                  : isSelf
-                  ? 'bg-slate-100/90 border border-slate-200'
-                  : 'bg-white hover:bg-slate-50 border border-transparent'
-              } ${!player.isConnected ? 'opacity-40' : ''}`}
+                    ? 'bg-brand-50 border border-brand-200/80'
+                    : isSelf
+                      ? 'bg-slate-100/90 border border-slate-200'
+                      : 'bg-white hover:bg-slate-50 border border-transparent'
+                } ${!player.isConnected ? 'opacity-40' : ''}`}
             >
               {/* Left: Avatar + Name */}
               <div className="flex items-center gap-2.5 min-w-0">

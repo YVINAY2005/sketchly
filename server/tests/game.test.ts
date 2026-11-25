@@ -62,14 +62,14 @@ describe('Game Engine State Machine', () => {
       defaultSettings,
       () => players,
       {
-        onStateChange: () => {},
-        onRoundStart: () => {},
-        onWordChosen: () => {},
-        onPrivateWord: () => {},
-        onHintRevealed: () => {},
-        onRoundEnd: () => {},
-        onGameOver: () => {},
-        onTimerTick: () => {},
+        onStateChange: () => { },
+        onRoundStart: () => { },
+        onWordChosen: () => { },
+        onPrivateWord: () => { },
+        onHintRevealed: () => { },
+        onRoundEnd: () => { },
+        onGameOver: () => { },
+        onTimerTick: () => { },
       }
     );
   });

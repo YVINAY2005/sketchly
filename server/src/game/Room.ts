@@ -299,7 +299,7 @@ export class Room {
           $inc: { gamesPlayed: 1 },
         },
         { upsert: true }
-      ).catch(() => {});
+      ).catch(() => { });
     }
 
     this.broadcastRoomState();

@@ -190,48 +190,8 @@ Sketchly features a unit and integration test suite using **Vitest**:
 
 Run the test suite:
 ```bash
-npm run test --workspace=server
+npm run test --prefix server
 ```
-
----
-
-## 🐳 Docker Setup
-
-Run the full production stack (Sketchly + MongoDB) using Docker Compose:
-
-```bash
-docker-compose up --build
-```
-Access the application at [http://localhost:3001](http://localhost:3001).
-
----
-
-## 🌐 Production Deployment
-
-### Option A: Render (Full-Stack Single Web Service)
-1. Fork or push this repository to GitHub.
-2. Create a new **Web Service** on [Render](https://render.com).
-3. Connect your repository.
-4. Set:
-   - **Environment:** `Node`
-   - **Build Command:** `npm ci && npm run build`
-   - **Start Command:** `npm start`
-5. Configure environment variables in the Render Dashboard:
-   - `NODE_ENV`: `production`
-   - `PORT`: `10000`
-   - `MONGODB_URI`: `<Your MongoDB Atlas connection URI>`
-   - `CLIENT_URL`: `https://your-service-name.onrender.com`
-6. Deploy! Render will build shared, client, and server, and serve the application with WebSocket support.
-
-### Option B: Separate Frontend (Vercel) + Backend (Render/Railway)
-1. **Backend (Render / Railway):**
-   - Deploy `server/` with `npm start`
-   - Set `CLIENT_URL=https://your-app.vercel.app`
-2. **Frontend (Vercel):**
-   - Root Directory: `client`
-   - Build Command: `npm run build --workspace=shared && npm run build --workspace=client`
-   - Output Directory: `dist`
-   - Environment Variable: `VITE_SERVER_URL=https://your-backend.onrender.com`
 
 ---
 

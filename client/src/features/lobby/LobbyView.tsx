@@ -145,11 +145,10 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
               return (
                 <div
                   key={p.id}
-                  className={`flex items-center justify-between p-3 rounded-xl border transition-all ${
-                    isSelf
+                  className={`flex items-center justify-between p-3 rounded-xl border transition-all ${isSelf
                       ? 'bg-brand-50/60 border-brand-200'
                       : 'bg-slate-50 border-slate-200/80 hover:bg-slate-100/60'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <Avatar emoji={p.avatar} size="md" isHost={p.isHost} />

@@ -128,3 +128,4 @@ export interface ServerToClientEvents {
     points?: number;
   }) => void;
 }
+

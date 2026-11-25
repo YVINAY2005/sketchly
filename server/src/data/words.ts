@@ -188,3 +188,4 @@ export const WORD_CATEGORIES = [
   'professions',
   'technology',
 ] as const;
+

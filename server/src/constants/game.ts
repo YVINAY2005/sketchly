@@ -33,3 +33,4 @@ export const GAME_CONSTANTS = {
   FIRST_GUESSER_BONUS: 50,
   DRAWER_BONUS_PER_GUESS: 40,
 } as const;
+
