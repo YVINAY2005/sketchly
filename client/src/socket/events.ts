@@ -17,7 +17,12 @@ export interface ClientToServerEvents {
       avatar: string;
       settings: Partial<RoomSettings>;
     },
-    callback: (response: { success: boolean; roomCode?: string; error?: string }) => void
+    callback: (response: {
+      success: boolean;
+      roomCode?: string;
+      playerId?: string;
+      error?: string;
+    }) => void
   ) => void;
 
   'room:join': (

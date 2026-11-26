@@ -28,13 +28,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             id={inputId}
-            className={`w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors ${
-              leftIcon ? 'pl-10' : ''
-            } ${rightElement ? 'pr-12' : ''} ${
-              error
-                ? 'border-red-400 focus:ring-red-500 focus:border-red-500 bg-red-50/30'
-                : 'border-slate-300 hover:border-slate-400'
-            } ${className}`}
+            className={`w-full rounded-xl border-2 bg-white px-3.5 py-2.5 text-sm font-bold text-slate-900 placeholder:text-slate-400 placeholder:font-normal focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200 transition-all ${leftIcon ? 'pl-10' : ''
+              } ${rightElement ? 'pr-12' : ''} ${error
+                ? 'border-red-500 bg-red-50/40 text-red-900'
+                : 'border-slate-800 hover:border-slate-900 shadow-sm'
+              } ${className}`}
             {...props}
           />
           {rightElement && (

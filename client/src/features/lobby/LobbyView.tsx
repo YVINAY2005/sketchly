@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Copy,
   Check,
+  Link2,
   Play,
   Settings as SettingsIcon,
   LogOut,
@@ -36,18 +37,26 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
   isHost,
   onLeaveRoom,
 }) => {
-  const [copied, setCopied] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   // Editable settings draft for host
   const [draftSettings, setDraftSettings] = useState<RoomSettings>(settings);
 
+  const copyRoomCode = () => {
+    navigator.clipboard.writeText(roomCode);
+    setCopiedCode(true);
+    sound.playPop();
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
   const copyInviteLink = () => {
     const inviteUrl = `${window.location.origin}/room/${roomCode}`;
     navigator.clipboard.writeText(inviteUrl);
-    setCopied(true);
+    setCopiedLink(true);
     sound.playPop();
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopiedLink(false), 2000);
   };
 
   const handleStartGame = () => {
@@ -75,24 +84,42 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
   const canStart = players.length >= 2;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-4xl mx-auto px-4 py-6 space-y-6 animate-pop-in">
       {/* Top Banner: Room Code & Quick Share */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white rounded-3xl border-3 border-slate-900 p-5 sm:p-6 shadow-tactile-lg flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-            Room Code
+          <span className="text-xs font-black text-slate-700 uppercase tracking-widest block mb-1">
+            🎮 ROOM PASSCODE
           </span>
-          <div className="flex items-center gap-3 mt-1">
-            <h1 className="text-3xl sm:text-4xl font-mono font-black tracking-wider text-slate-900">
-              {roomCode}
-            </h1>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="px-4 py-1.5 bg-amber-100 border-2 border-slate-900 rounded-2xl shadow-tactile-sm">
+              <h1 className="text-3xl sm:text-4xl font-mono font-black tracking-widest text-slate-950 select-all">
+                {roomCode}
+              </h1>
+            </div>
+
+            {/* Separate Button: Copy Code */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={copyRoomCode}
+              icon={copiedCode ? <Check className="w-4 h-4 text-emerald-700 stroke-[3]" /> : <Copy className="w-4 h-4" />}
+              className={copiedCode ? 'bg-emerald-100 border-slate-900 text-emerald-950 font-black' : 'font-extrabold'}
+              title="Copy 6-character room code only"
+            >
+              {copiedCode ? 'CODE COPIED!' : 'COPY CODE'}
+            </Button>
+
+            {/* Separate Button: Copy Link */}
             <Button
               variant="outline"
               size="sm"
               onClick={copyInviteLink}
-              icon={copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+              icon={copiedLink ? <Check className="w-4 h-4 text-emerald-700 stroke-[3]" /> : <Link2 className="w-4 h-4" />}
+              className={copiedLink ? 'bg-emerald-100 border-slate-900 text-emerald-950 font-black' : 'font-extrabold'}
+              title="Copy full invite link with URL"
             >
-              {copied ? 'Copied Link!' : 'Copy Link'}
+              {copiedLink ? 'LINK COPIED!' : 'COPY LINK'}
             </Button>
           </div>
         </div>
@@ -105,16 +132,16 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
                 setDraftSettings(settings);
                 setShowSettingsModal(true);
               }}
-              icon={<SettingsIcon className="w-4 h-4 text-slate-600" />}
+              icon={<SettingsIcon className="w-4 h-4 text-slate-900 stroke-[2.5]" />}
             >
-              Room Settings
+              RULES
             </Button>
           )}
 
           <Button
             variant="ghost"
             onClick={onLeaveRoom}
-            icon={<LogOut className="w-4 h-4 text-slate-500" />}
+            icon={<LogOut className="w-4 h-4 text-slate-600 stroke-[2.5]" />}
           >
             Leave
           </Button>
@@ -124,41 +151,42 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
       {/* Main Grid: Player Roster & Room Settings Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Column: Players List (2 cols) */}
-        <div className="md:col-span-2 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="md:col-span-2 bg-white rounded-3xl border-3 border-slate-900 p-5 sm:p-6 shadow-tactile-lg space-y-4">
+          <div className="flex items-center justify-between border-b-2 border-slate-900/10 pb-3">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-brand-600" />
-              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
-                Players ({players.length}/{settings.maxPlayers})
+              <Users className="w-5 h-5 text-amber-600 stroke-[2.5]" />
+              <h2 className="text-base font-black text-slate-950 uppercase tracking-wider">
+                Players in Lobby ({players.length}/{settings.maxPlayers})
               </h2>
             </div>
             {players.length < 2 && (
-              <span className="text-xs text-amber-600 font-semibold">
-                Needs 2+ players to start
+              <span className="text-xs text-amber-900 bg-amber-100 border border-slate-900 px-2 py-0.5 rounded-lg font-black">
+                Needs 2+ players
               </span>
             )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {players.map((p) => {
               const isSelf = p.id === currentUserId;
               return (
                 <div
                   key={p.id}
-                  className={`flex items-center justify-between p-3 rounded-xl border transition-all ${isSelf
-                      ? 'bg-brand-50/60 border-brand-200'
-                      : 'bg-slate-50 border-slate-200/80 hover:bg-slate-100/60'
-                    }`}
+                  className={`flex items-center justify-between p-3.5 rounded-2xl border-2 border-slate-900 shadow-tactile-sm transition-all ${
+                    isSelf
+                      ? 'bg-amber-100/80 ring-2 ring-amber-400'
+                      : 'bg-white hover:bg-slate-50'
+                  }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <Avatar emoji={p.avatar} size="md" isHost={p.isHost} />
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5">
-                        <p className="text-sm font-bold text-slate-900 truncate">
+                        <p className="text-sm font-black text-slate-950 truncate">
                           {p.name}
                         </p>
                         {isSelf && (
-                          <span className="text-[10px] font-bold text-brand-600 bg-brand-100 px-1.5 py-0.2 rounded-md">
+                          <span className="text-[10px] font-black text-slate-900 bg-amber-300 border border-slate-900 px-1.5 py-0.2 rounded-md">
                             YOU
                           </span>
                         )}
@@ -166,14 +194,14 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
                       <div className="flex items-center gap-1.5 mt-0.5">
                         {p.isHost ? (
                           <Badge variant="warning" size="sm">
-                            Host
+                            Host 👑
                           </Badge>
                         ) : p.isReady ? (
                           <Badge variant="success" size="sm">
-                            Ready
+                            Ready ✓
                           </Badge>
                         ) : (
-                          <span className="text-[10px] text-slate-400">Waiting</span>
+                          <span className="text-[11px] font-bold text-slate-400">Waiting...</span>
                         )}
                       </div>
                     </div>
@@ -184,7 +212,7 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
                     <button
                       type="button"
                       onClick={() => handleKickPlayer(p.id)}
-                      className="text-slate-400 hover:text-red-600 text-xs font-semibold p-1.5 rounded-lg hover:bg-red-50 transition-colors"
+                      className="text-slate-500 hover:text-rose-700 text-xs font-black p-1.5 rounded-lg hover:bg-rose-50 border border-transparent hover:border-slate-900 transition-all cursor-pointer"
                       title="Kick player"
                     >
                       Kick
@@ -196,32 +224,34 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
           </div>
 
           {/* Action Row */}
-          <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="pt-4 border-t-2 border-slate-900/10 flex flex-col sm:flex-row items-center justify-between gap-3">
             {isHost ? (
               <Button
                 variant="primary"
                 size="lg"
                 onClick={handleStartGame}
                 disabled={!canStart}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto text-base px-8 py-3.5 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black"
                 icon={<Play className="w-5 h-5 fill-current" />}
               >
-                Start Game
+                START GAME
               </Button>
             ) : (
               <Button
                 variant={currentUser?.isReady ? 'secondary' : 'primary'}
                 size="lg"
                 onClick={handleToggleReady}
-                className="w-full sm:w-auto"
-                icon={<Check className="w-4 h-4" />}
+                className={`w-full sm:w-auto font-black ${
+                  currentUser?.isReady ? '' : 'bg-emerald-400 hover:bg-emerald-300 text-slate-950'
+                }`}
+                icon={<Check className="w-5 h-5 stroke-[3]" />}
               >
-                {currentUser?.isReady ? 'I am Ready (Cancel)' : 'Ready Up!'}
+                {currentUser?.isReady ? 'READY (CANCEL)' : 'READY UP!'}
               </Button>
             )}
 
             {!isHost && (
-              <p className="text-xs text-slate-500 italic text-center sm:text-right">
+              <p className="text-xs font-bold text-slate-600 italic text-center sm:text-right">
                 Waiting for host to start the game...
               </p>
             )}
@@ -229,48 +259,51 @@ export const LobbyView: React.FC<LobbyViewProps> = ({
         </div>
 
         {/* Right Column: Room Settings Summary Card (1 col) */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-slate-100 pb-2">
-            Match Rules
-          </h3>
+        <div className="bg-white rounded-3xl border-3 border-slate-900 p-5 sm:p-6 shadow-tactile-lg space-y-4">
+          <div className="flex items-center gap-2 border-b-2 border-slate-900/10 pb-2.5">
+            <Sparkles className="w-4 h-4 text-amber-600 stroke-[2.5]" />
+            <h3 className="text-xs font-black text-slate-950 uppercase tracking-wider">
+              Match Rules
+            </h3>
+          </div>
 
-          <div className="space-y-3 text-xs">
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500 flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5" /> Rounds:
+          <div className="space-y-2.5 text-xs font-bold">
+            <div className="flex items-center justify-between p-2 rounded-xl bg-amber-50/70 border border-slate-900/20">
+              <span className="text-slate-600 flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-slate-800" /> Rounds:
               </span>
-              <span className="font-bold text-slate-800">{settings.rounds}</span>
+              <span className="font-mono font-black text-slate-900">{settings.rounds}</span>
             </div>
 
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" /> Draw time:
+            <div className="flex items-center justify-between p-2 rounded-xl bg-amber-50/70 border border-slate-900/20">
+              <span className="text-slate-600 flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-slate-800" /> Draw Time:
               </span>
-              <span className="font-bold text-slate-800">{settings.drawTime}s</span>
+              <span className="font-mono font-black text-slate-900">{settings.drawTime}s</span>
             </div>
 
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" /> Word choices:
+            <div className="flex items-center justify-between p-2 rounded-xl bg-amber-50/70 border border-slate-900/20">
+              <span className="text-slate-600 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-slate-800" /> Word Choices:
               </span>
-              <span className="font-bold text-slate-800">{settings.wordCount}</span>
+              <span className="font-mono font-black text-slate-900">{settings.wordCount}</span>
             </div>
 
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500 flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5" /> Hints enabled:
+            <div className="flex items-center justify-between p-2 rounded-xl bg-amber-50/70 border border-slate-900/20">
+              <span className="text-slate-600 flex items-center gap-1.5">
+                <Shield className="w-3.5 h-3.5 text-slate-800" /> Hints:
               </span>
-              <span className="font-bold text-slate-800">{settings.hints}</span>
+              <span className="font-mono font-black text-slate-900">{settings.hints}</span>
             </div>
 
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500">Mode:</span>
-              <span className="font-bold text-slate-800">{settings.wordMode}</span>
+            <div className="flex items-center justify-between p-2 rounded-xl bg-amber-50/70 border border-slate-900/20">
+              <span className="text-slate-600">Mode:</span>
+              <span className="font-black text-slate-900">{settings.wordMode}</span>
             </div>
 
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500">Category:</span>
-              <span className="font-bold text-slate-800 capitalize">{settings.category}</span>
+            <div className="flex items-center justify-between p-2 rounded-xl bg-amber-50/70 border border-slate-900/20">
+              <span className="text-slate-600">Category:</span>
+              <span className="font-black text-slate-900 capitalize">{settings.category}</span>
             </div>
           </div>
         </div>

@@ -355,7 +355,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full min-h-[350px] sm:min-h-[460px] bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden select-none touch-none"
+      className="relative w-full h-full min-h-[350px] sm:min-h-[460px] bg-white rounded-3xl shadow-tactile-lg border-3 sm:border-4 border-slate-900 overflow-hidden select-none touch-none"
     >
       <canvas
         ref={canvasRef}
@@ -371,8 +371,8 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
       </canvas>
 
       {!isDrawer && (
-        <div className="absolute top-2 right-2 px-2.5 py-1 bg-slate-900/60 backdrop-blur-sm rounded-lg text-[11px] font-medium text-white pointer-events-none">
-          Spectating
+        <div className="absolute top-3 right-3 px-3 py-1 bg-slate-900 border-2 border-amber-400 rounded-xl text-xs font-black text-amber-300 pointer-events-none shadow-tactile-sm tracking-wider uppercase">
+          👁️ SPECTATING
         </div>
       )}
     </div>

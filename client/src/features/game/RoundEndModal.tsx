@@ -16,21 +16,21 @@ export const RoundEndModal: React.FC<RoundEndModalProps> = ({ isOpen, result }) 
     <Modal isOpen={isOpen} showCloseButton={false} maxWidth="md" title="Round Finished!">
       <div className="space-y-4 text-center">
         {/* Word Reveal */}
-        <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
-            The word was:
+        <div className="p-4 bg-amber-100 rounded-2xl border-3 border-slate-900 shadow-tactile-sm">
+          <p className="text-xs font-black text-slate-700 uppercase tracking-wider mb-1">
+            THE SECRET WORD WAS:
           </p>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-600 tracking-wide uppercase font-mono">
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-wider uppercase font-mono">
             {result.word}
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Drawn by <span className="font-bold text-slate-800">{result.drawerName}</span>
+          <p className="text-xs font-bold text-slate-600 mt-1">
+            Drawn by <span className="font-black text-slate-950">{result.drawerName}</span>
           </p>
         </div>
 
         {/* Scores summary table */}
         <div className="text-left">
-          <h4 className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+          <h4 className="text-xs font-black text-slate-950 uppercase tracking-wider mb-2">
             Points this round
           </h4>
 
@@ -38,30 +38,30 @@ export const RoundEndModal: React.FC<RoundEndModalProps> = ({ isOpen, result }) 
             {result.scores.map((s) => (
               <div
                 key={s.playerId}
-                className="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-200 text-xs"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white border-2 border-slate-900 shadow-tactile-sm text-xs"
               >
                 <div className="flex items-center gap-2">
                   {s.guessed ? (
                     <Badge variant="success" size="sm">
-                      <Check className="w-3 h-3" /> Guessed
+                      <Check className="w-3 h-3 stroke-[3]" /> Guessed
                     </Badge>
                   ) : s.isDrawer ? (
                     <Badge variant="brand" size="sm">
-                      Drawer
+                      Drawer 🎨
                     </Badge>
                   ) : (
-                    <span className="text-slate-400 text-xs pl-2">—</span>
+                    <span className="text-slate-400 text-xs pl-2 font-bold">—</span>
                   )}
-                  <span className="font-bold text-slate-900">{s.name}</span>
+                  <span className="font-black text-slate-950">{s.name}</span>
                 </div>
 
                 <div className="flex items-center gap-2 font-mono">
                   {s.roundScore > 0 ? (
-                    <span className="font-bold text-emerald-600">+{s.roundScore}</span>
+                    <span className="font-black text-emerald-700">+{s.roundScore}</span>
                   ) : (
-                    <span className="text-slate-400">+0</span>
+                    <span className="text-slate-400 font-bold">+0</span>
                   )}
-                  <span className="font-extrabold text-slate-800 w-12 text-right">
+                  <span className="font-black text-slate-950 w-14 text-right bg-amber-50 px-1.5 py-0.5 rounded border border-slate-900/40">
                     {s.score} pts
                   </span>
                 </div>
@@ -72,10 +72,10 @@ export const RoundEndModal: React.FC<RoundEndModalProps> = ({ isOpen, result }) 
 
         {/* Next Drawer notice */}
         {result.nextDrawerName && (
-          <div className="pt-2 flex items-center justify-center gap-1.5 text-xs text-slate-500 font-medium">
+          <div className="pt-2 flex items-center justify-center gap-1.5 text-xs text-slate-700 font-black">
             <span>Next drawer:</span>
-            <span className="font-bold text-slate-800">{result.nextDrawerName}</span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
+            <span className="font-black text-slate-950 bg-amber-200 border border-slate-900 px-2 py-0.5 rounded-md">{result.nextDrawerName}</span>
+            <ArrowRight className="w-4 h-4 text-slate-900 stroke-[3]" />
           </div>
         )}
       </div>

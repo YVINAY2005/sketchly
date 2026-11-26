@@ -29,14 +29,14 @@ export const Avatar: React.FC<AvatarProps> = ({
   return (
     <div className="relative inline-flex shrink-0">
       <div
-        className={`inline-flex items-center justify-center rounded-2xl bg-slate-100 border border-slate-200/80 shadow-sm select-none ${sizeMap[size]} ${className}`}
+        className={`inline-flex items-center justify-center rounded-2xl bg-amber-50/90 border-2 border-slate-900 shadow-tactile-sm select-none transition-transform ${sizeMap[size]} ${className}`}
         title={name}
       >
         <span>{emoji}</span>
       </div>
       {isHost && (
         <span
-          className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-400 text-[10px] font-bold text-amber-950 shadow-sm"
+          className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-amber-400 border-2 border-slate-900 text-[10px] font-bold text-amber-950 shadow-tactile-sm animate-bounce"
           title="Room Host"
         >
           👑
@@ -61,10 +61,10 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({ selected, onSelect }
             key={emoji}
             type="button"
             onClick={() => onSelect(emoji)}
-            className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl transition-transform active:scale-95 ${
+            className={`w-11 h-11 rounded-xl flex items-center justify-center text-2xl transition-all cursor-pointer active:translate-y-0.5 ${
               isSelected
-                ? 'bg-brand-100 border-2 border-brand-600 scale-105 shadow-sm'
-                : 'bg-slate-100 hover:bg-slate-200 border border-slate-200'
+                ? 'bg-amber-300 border-2 border-slate-900 shadow-tactile scale-110 -translate-y-1'
+                : 'bg-white hover:bg-amber-50 border-2 border-slate-800 shadow-tactile-sm hover:-translate-y-0.5'
             }`}
           >
             {emoji}

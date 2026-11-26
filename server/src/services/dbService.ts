@@ -8,13 +8,14 @@ export async function connectDB(): Promise<boolean> {
 
   try {
     const opts: mongoose.ConnectOptions = {
-      serverSelectionTimeoutMS: 1000,
-      connectTimeoutMS: 1000,
+      serverSelectionTimeoutMS: 8000,
+      connectTimeoutMS: 8000,
     };
 
     await mongoose.connect(ENV.MONGODB_URI, opts);
     isConnected = true;
-    console.log(`[MongoDB] Connected successfully to ${ENV.MONGODB_URI}`);
+    const sanitizedUri = ENV.MONGODB_URI.replace(/:([^@]+)@/, ':****@');
+    console.log(`[MongoDB] Connected successfully to ${sanitizedUri}`);
     return true;
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);

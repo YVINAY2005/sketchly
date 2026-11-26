@@ -53,8 +53,9 @@ export const RoomPage: React.FC = () => {
   // Client-interpolated round countdown
   const [roundTimer, setRoundTimer] = useState<number>(0);
   const timerRef = useRef<number | null>(null);
+  const joinedRef = useRef<string | null>(null);
 
-  const connectAndJoin = (nameToJoin: string, avatarToJoin: string) => {
+  const connectAndJoin = (nameToJoin: string, avatarToJoin: string, explicitPlayerId?: string) => {
     setIsJoining(true);
     setErrorMessage(null);
 
@@ -62,13 +63,15 @@ export const RoomPage: React.FC = () => {
       socket.connect();
     }
 
+    const pidToSend = explicitPlayerId || playerId || sessionStorage.getItem(`sketchly_pid_${formattedRoomCode}`) || undefined;
+
     socket.emit(
       'room:join',
       {
         roomCode: formattedRoomCode,
         playerName: nameToJoin,
         avatar: avatarToJoin,
-        playerId: playerId || undefined,
+        playerId: pidToSend,
       },
       (res) => {
         setIsJoining(false);
@@ -93,8 +96,10 @@ export const RoomPage: React.FC = () => {
 
     if (!playerName.trim()) {
       setShowJoinModal(true);
-    } else {
-      connectAndJoin(playerName, avatar);
+    } else if (joinedRef.current !== formattedRoomCode) {
+      joinedRef.current = formattedRoomCode;
+      const storedPid = sessionStorage.getItem(`sketchly_pid_${formattedRoomCode}`) || playerId;
+      connectAndJoin(playerName, avatar, storedPid);
     }
 
     // Socket Event Listeners
@@ -280,34 +285,35 @@ export const RoomPage: React.FC = () => {
   const handleJoinSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!playerName.trim()) return;
+    joinedRef.current = formattedRoomCode;
     connectAndJoin(playerName.trim(), avatar);
   };
 
   const isHost = hostId === playerId;
 
   return (
-    <div className="min-h-screen flex flex-col bg-surface-ground">
+    <div className="min-h-screen flex flex-col">
       <Navbar roomCode={formattedRoomCode} />
 
       <main className="flex-1 flex flex-col items-center justify-start p-2 sm:p-4">
         {/* Loading state before first state sync */}
         {!gameState && !errorMessage && !showJoinModal && (
-          <div className="flex flex-col items-center justify-center py-24 text-slate-500">
-            <div className="w-10 h-10 border-4 border-brand-200 border-t-brand-600 rounded-full animate-spin mb-4" />
-            <p className="text-sm font-semibold">Connecting to room {formattedRoomCode}...</p>
+          <div className="flex flex-col items-center justify-center py-24 text-slate-200">
+            <div className="w-12 h-12 border-4 border-amber-400/30 border-t-amber-400 rounded-full animate-spin mb-4" />
+            <p className="text-sm font-black uppercase tracking-wider text-amber-300">Connecting to game room {formattedRoomCode}...</p>
           </div>
         )}
 
         {/* Error message */}
         {errorMessage && (
-          <div className="max-w-md w-full bg-white p-6 rounded-2xl border border-red-200 shadow-sm text-center my-12 space-y-4">
-            <div className="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto text-xl font-bold">
+          <div className="max-w-md w-full bg-white p-7 rounded-3xl border-3 border-slate-900 shadow-tactile-lg text-center my-12 space-y-4 animate-pop-in">
+            <div className="w-14 h-14 bg-rose-100 border-2 border-slate-900 text-rose-700 rounded-2xl flex items-center justify-center mx-auto text-2xl font-black shadow-tactile-sm">
               ✕
             </div>
-            <h3 className="text-lg font-bold text-slate-900">Could not join room</h3>
-            <p className="text-sm text-slate-600">{errorMessage}</p>
-            <Button onClick={() => navigate('/')} variant="primary" className="w-full">
-              Back to Home
+            <h3 className="text-xl font-black text-slate-950 uppercase tracking-wide">Could Not Join Game</h3>
+            <p className="text-xs font-bold text-slate-600">{errorMessage}</p>
+            <Button onClick={() => navigate('/')} variant="primary" className="w-full font-black">
+              BACK TO HOME
             </Button>
           </div>
         )}

@@ -84,6 +84,7 @@ export class GameManager {
   public removeRoom(code: string): void {
     const room = this.rooms.get(code);
     if (room) {
+      room.clearAllDisconnectTimers();
       room.game.clearAllTimers();
       this.rooms.delete(code);
       console.log(`[GameManager] Room removed: ${code}`);

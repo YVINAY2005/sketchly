@@ -46,30 +46,30 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fade-in">
       <div
         className="fixed inset-0"
         onClick={onClose}
         aria-hidden="true"
       />
       <div
-        className={`relative w-full ${widthClasses[maxWidth]} bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden transform transition-all duration-200 z-10`}
+        className={`relative w-full ${widthClasses[maxWidth]} bg-white rounded-3xl shadow-tactile-xl border-4 border-slate-900 overflow-hidden transform transition-all duration-200 z-10 animate-pop-in`}
         role="dialog"
         aria-modal="true"
       >
         {(title || showCloseButton) && (
-          <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
+          <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b-2 border-slate-900 bg-amber-50">
             <div>
-              {title && <h3 className="text-lg font-bold text-slate-900 tracking-tight">{title}</h3>}
-              {description && <p className="text-xs text-slate-500 mt-0.5">{description}</p>}
+              {title && <h3 className="text-xl font-black text-slate-900 tracking-tight">{title}</h3>}
+              {description && <p className="text-xs font-semibold text-slate-600 mt-0.5">{description}</p>}
             </div>
             {showCloseButton && onClose && (
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                className="p-1.5 rounded-xl border-2 border-slate-900 bg-white hover:bg-rose-100 text-slate-800 hover:text-rose-700 shadow-tactile-sm active:translate-y-0.5 transition-all cursor-pointer"
                 aria-label="Close dialog"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 stroke-[2.5]" />
               </button>
             )}
           </div>

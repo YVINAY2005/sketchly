@@ -55,13 +55,13 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
           {secondPlace && (
             <div className="flex flex-col items-center">
               <Avatar emoji={secondPlace.avatar} size="md" />
-              <p className="text-xs font-bold text-slate-800 mt-1 max-w-[70px] truncate">
+              <p className="text-xs font-black text-slate-900 mt-1 max-w-[70px] truncate">
                 {secondPlace.name}
               </p>
-              <p className="text-[11px] font-mono font-bold text-slate-500">
-                {secondPlace.score}
+              <p className="text-[11px] font-mono font-black text-slate-600">
+                {secondPlace.score} pts
               </p>
-              <div className="w-16 sm:w-20 h-20 bg-slate-200 rounded-t-xl mt-2 flex flex-col items-center justify-center font-black text-slate-500 text-lg shadow-inner">
+              <div className="w-16 sm:w-20 h-20 bg-slate-200 rounded-t-2xl border-3 border-b-0 border-slate-900 mt-2 flex flex-col items-center justify-center font-black text-slate-700 text-base shadow-tactile-sm">
                 🥈 2nd
               </div>
             </div>
@@ -70,15 +70,15 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
           {/* 1st Place (Winner) */}
           {firstPlace && (
             <div className="flex flex-col items-center -translate-y-2">
-              <div className="text-2xl animate-bounce mb-1">👑</div>
+              <div className="text-3xl animate-bounce mb-1">👑</div>
               <Avatar emoji={firstPlace.avatar} size="lg" className="ring-4 ring-amber-400" />
-              <p className="text-sm font-extrabold text-slate-900 mt-1 max-w-[90px] truncate">
+              <p className="text-sm font-black text-slate-950 mt-1 max-w-[90px] truncate">
                 {firstPlace.name}
               </p>
-              <p className="text-xs font-mono font-extrabold text-amber-600">
+              <p className="text-xs font-mono font-black text-amber-800 bg-amber-100 px-2 py-0.5 rounded border border-slate-900 shadow-sm mt-0.5">
                 {firstPlace.score} pts
               </p>
-              <div className="w-20 sm:w-24 h-28 bg-amber-300 rounded-t-xl mt-2 flex flex-col items-center justify-center font-black text-amber-950 text-xl shadow-inner border-t-2 border-amber-400">
+              <div className="w-20 sm:w-24 h-28 bg-amber-300 rounded-t-2xl border-3 border-b-0 border-slate-900 mt-2 flex flex-col items-center justify-center font-black text-slate-950 text-xl shadow-tactile">
                 🥇 1st
               </div>
             </div>
@@ -88,13 +88,13 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
           {thirdPlace && (
             <div className="flex flex-col items-center">
               <Avatar emoji={thirdPlace.avatar} size="md" />
-              <p className="text-xs font-bold text-slate-800 mt-1 max-w-[70px] truncate">
+              <p className="text-xs font-black text-slate-900 mt-1 max-w-[70px] truncate">
                 {thirdPlace.name}
               </p>
-              <p className="text-[11px] font-mono font-bold text-slate-500">
-                {thirdPlace.score}
+              <p className="text-[11px] font-mono font-black text-slate-600">
+                {thirdPlace.score} pts
               </p>
-              <div className="w-16 sm:w-20 h-14 bg-amber-100 rounded-t-xl mt-2 flex flex-col items-center justify-center font-black text-amber-800 text-base shadow-inner">
+              <div className="w-16 sm:w-20 h-14 bg-amber-100 rounded-t-2xl border-3 border-b-0 border-slate-900 mt-2 flex flex-col items-center justify-center font-black text-amber-900 text-sm shadow-tactile-sm">
                 🥉 3rd
               </div>
             </div>
@@ -102,22 +102,22 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
         </div>
 
         {/* Full Leaderboard */}
-        <div className="text-left bg-slate-50 p-3 rounded-2xl border border-slate-200">
-          <h4 className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-            Final Standings
+        <div className="text-left bg-amber-50 p-4 rounded-2xl border-2 border-slate-900 shadow-tactile-sm">
+          <h4 className="text-xs font-black text-slate-950 uppercase tracking-wider mb-2.5">
+            FINAL STANDINGS
           </h4>
-          <div className="max-h-40 overflow-y-auto space-y-1">
+          <div className="max-h-40 overflow-y-auto space-y-1.5">
             {winnerData.allPlayers.map((p, idx) => (
               <div
                 key={p.id}
-                className="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-200 text-xs"
+                className="flex items-center justify-between p-2 rounded-xl bg-white border-2 border-slate-900/60 shadow-tactile-sm text-xs font-bold"
               >
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-bold text-slate-400 w-4">#{idx + 1}</span>
+                  <span className="font-mono font-black text-slate-600 w-4">#{idx + 1}</span>
                   <Avatar emoji={p.avatar} size="sm" />
-                  <span className="font-bold text-slate-900">{p.name}</span>
+                  <span className="font-black text-slate-950">{p.name}</span>
                 </div>
-                <span className="font-mono font-extrabold text-slate-800">{p.score} pts</span>
+                <span className="font-mono font-black text-slate-950 bg-amber-100 px-2 py-0.5 rounded border border-slate-900/40">{p.score} pts</span>
               </div>
             ))}
           </div>
@@ -130,13 +130,14 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
               onClick={handleRestart}
               variant="primary"
               size="lg"
-              icon={<RotateCcw className="w-4 h-4" />}
+              className="bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black shadow-tactile-md"
+              icon={<RotateCcw className="w-4 h-4 stroke-[3]" />}
             >
-              Play Again
+              PLAY AGAIN
             </Button>
           ) : (
-            <div className="text-xs text-slate-500 italic">
-              Waiting for the host to restart or choose a new game...
+            <div className="text-xs text-slate-600 font-bold italic">
+              Waiting for the host to restart match...
             </div>
           )}
 
@@ -144,9 +145,10 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
             onClick={onLeave}
             variant="outline"
             size="lg"
-            icon={<Home className="w-4 h-4" />}
+            className="font-black"
+            icon={<Home className="w-4 h-4 stroke-[2.5]" />}
           >
-            Leave Game
+            LEAVE GAME
           </Button>
         </div>
       </div>

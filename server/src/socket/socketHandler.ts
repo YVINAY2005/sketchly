@@ -26,7 +26,7 @@ export function setupSocketHandlers(
         ChatHandler.register(socket, room);
 
         if (typeof callback === 'function') {
-          callback({ success: true, roomCode: room.code });
+          callback({ success: true, roomCode: room.code, playerId: player.id });
         }
 
         room.broadcastRoomState();
@@ -101,10 +101,13 @@ export function setupSocketHandlers(
     socket.on('room:leave', () => {
       const room = gameManager.getRoomBySocketId(socket.id);
       if (room) {
+        const playerId = room.socketToPlayerMap.get(socket.id);
         socket.leave(room.code);
-        const { roomEmpty } = room.handleDisconnect(socket.id);
-        if (roomEmpty) {
-          gameManager.removeRoom(room.code);
+        if (playerId) {
+          const { roomEmpty } = room.removePlayerPermanently(playerId);
+          if (roomEmpty) {
+            gameManager.removeRoom(room.code);
+          }
         }
       }
     });

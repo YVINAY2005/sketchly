@@ -4,35 +4,44 @@
 
 @layer base {
   :root {
-    --bg-ground: #f8fafc;
+    --bg-ground: #0a0f24;
     --surface-panel: #ffffff;
-    --border-color: #e2e8f0;
+    --border-color: #18181b;
   }
 
   body {
-    background-color: var(--bg-ground);
-    color: #0f172a;
+    background-color: #0a0f24;
+    background-image: 
+      radial-gradient(circle at 50% 0%, #1e294b 0%, transparent 75%),
+      radial-gradient(rgba(255, 255, 255, 0.09) 1.5px, transparent 1.5px),
+      radial-gradient(rgba(251, 191, 36, 0.07) 1.5px, transparent 1.5px);
+    background-size: 100% 100%, 28px 28px, 56px 56px;
+    background-position: 0 0, 0 0, 14px 14px;
+    background-attachment: fixed;
+    color: #18181b;
     overflow-x: hidden;
   }
 }
 
-/* Custom minimal scrollbar */
+/* Custom game scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0f172a;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #334155;
+  border: 2px solid #0f172a;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #f59e0b;
 }
 
 /* Drawing Canvas crosshair cursor */
@@ -44,12 +53,48 @@
   cursor: default;
 }
 
+/* Game Card Utility */
+.game-card {
+  background-color: #ffffff;
+  border: 2px solid #18181b;
+  box-shadow: 0 4px 0 0 #18181b;
+  border-radius: 1rem;
+}
+
+.game-card-sm {
+  background-color: #ffffff;
+  border: 2px solid #18181b;
+  box-shadow: 0 3px 0 0 #18181b;
+  border-radius: 0.75rem;
+}
+
+.game-card-interactive {
+  background-color: #ffffff;
+  border: 2px solid #18181b;
+  box-shadow: 0 4px 0 0 #18181b;
+  border-radius: 1rem;
+  transition: all 0.15s ease;
+}
+
+.game-card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 0 #18181b;
+}
+
+.game-card-interactive:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 0 #18181b;
+}
+
 /* Pulse animation for countdown under 10 seconds */
 @keyframes timerPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     color: #ef4444;
   }
+
   50% {
     transform: scale(1.08);
     color: #b91c1c;
@@ -60,3 +105,22 @@
   animation: timerPulse 1s ease-in-out infinite;
 }
 
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  70% {
+    transform: scale(1.03);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pop-in {
+  animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}

@@ -56,9 +56,9 @@ export const WordSelectionModal: React.FC<WordSelectionModalProps> = ({
           <span className="font-mono font-bold text-slate-900">{timeRemaining}s</span>
         </div>
 
-        <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-amber-100 border-2 border-slate-900 rounded-full overflow-hidden shadow-tactile-sm">
           <div
-            className="h-full bg-brand-600 transition-all duration-1000 ease-linear rounded-full"
+            className="h-full bg-amber-400 transition-all duration-1000 ease-linear rounded-full"
             style={{ width: `${Math.max(0, Math.min(100, (timeRemaining / 15) * 100))}%` }}
           />
         </div>
@@ -72,17 +72,16 @@ export const WordSelectionModal: React.FC<WordSelectionModalProps> = ({
                 type="button"
                 onClick={() => handleSelect(word)}
                 disabled={Boolean(selectedWord)}
-                className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all active:scale-95 ${
-                  selectedWord === word
-                    ? 'border-brand-600 bg-brand-50 shadow-md scale-102'
-                    : 'border-slate-200 hover:border-brand-400 bg-white hover:bg-slate-50 shadow-tactile'
-                }`}
+                className={`flex flex-col items-center justify-center p-4 rounded-2xl border-3 transition-all cursor-pointer active:translate-y-1 active:shadow-none ${selectedWord === word
+                    ? 'border-slate-900 bg-amber-300 shadow-tactile-md scale-105'
+                    : 'border-slate-900 hover:border-slate-950 bg-white hover:bg-amber-100 shadow-tactile hover:-translate-y-1'
+                  }`}
               >
-                <Sparkles className="w-5 h-5 text-brand-600 mb-1.5" />
-                <span className="text-base font-extrabold text-slate-900 capitalize tracking-wide">
+                <Sparkles className="w-5 h-5 text-amber-600 mb-1.5 stroke-[2.5]" />
+                <span className="text-base font-black text-slate-950 uppercase tracking-wider">
                   {word}
                 </span>
-                <span className="text-[10px] font-semibold text-slate-400 mt-1">
+                <span className="text-[11px] font-bold text-slate-500 mt-1">
                   {word.length} letters
                 </span>
               </button>
@@ -91,14 +90,14 @@ export const WordSelectionModal: React.FC<WordSelectionModalProps> = ({
         ) : (
           /* Non-drawer waiting animation */
           <div className="py-8 flex flex-col items-center justify-center text-center">
-            <div className="w-12 h-12 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-2xl animate-bounce mb-3 shadow-sm">
+            <div className="w-14 h-14 rounded-2xl bg-amber-200 border-2 border-slate-900 text-slate-950 flex items-center justify-center text-3xl animate-bounce mb-3 shadow-tactile-sm">
               🤔
             </div>
-            <p className="text-sm font-semibold text-slate-700">
+            <p className="text-sm font-black text-slate-950 uppercase tracking-wider">
               Get ready to guess!
             </p>
-            <p className="text-xs text-slate-400 mt-1">
-              The drawing canvas will unlock once the word is chosen.
+            <p className="text-xs font-bold text-slate-500 mt-1">
+              The drawing board will unlock once {drawerName || 'the drawer'} picks a word.
             </p>
           </div>
         )}

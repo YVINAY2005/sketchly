@@ -21,7 +21,10 @@ export const JoinRoomPage: React.FC = () => {
       setError('Please enter a display name.');
       return;
     }
-    const cleanCode = roomCode.trim().toUpperCase();
+    let cleanCode = roomCode.trim().toUpperCase();
+    if (cleanCode.includes('/ROOM/')) {
+      cleanCode = cleanCode.split('/ROOM/').pop()?.split(/[?#/]/)[0].trim().toUpperCase() || cleanCode;
+    }
     if (!cleanCode) {
       setError('Please enter a valid room code.');
       return;
@@ -34,29 +37,29 @@ export const JoinRoomPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-surface-ground">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
 
       <main className="flex-1 max-w-md w-full mx-auto px-4 py-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 mb-6 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-black text-amber-400 hover:text-amber-300 mb-6 transition-colors uppercase tracking-wider"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Home
+          <ArrowLeft className="w-4 h-4 stroke-[2.5]" /> Back to Home
         </Link>
 
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
-          <div className="border-b border-slate-100 pb-3">
-            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-              <LogIn className="w-5 h-5 text-brand-600" /> Join a Room
+        <div className="bg-white rounded-3xl border-3 border-slate-900 p-6 sm:p-8 shadow-tactile-lg space-y-5 animate-pop-in">
+          <div className="border-b-2 border-slate-900/10 pb-3">
+            <h1 className="text-2xl font-black text-slate-950 tracking-tight flex items-center gap-2">
+              <LogIn className="w-5 h-5 text-amber-600 stroke-[2.5]" /> Join a Game
             </h1>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Enter the 6-character room code shared by your friend.
+            <p className="text-xs font-bold text-slate-600 mt-0.5">
+              Enter the 6-character room code to jump straight into the match.
             </p>
           </div>
 
           {error && (
-            <div className="p-2.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-medium">
+            <div className="p-3 rounded-xl bg-rose-100 border-2 border-slate-900 text-xs text-rose-950 font-black shadow-tactile-sm">
               {error}
             </div>
           )}
@@ -66,8 +69,14 @@ export const JoinRoomPage: React.FC = () => {
               label="Room Code"
               placeholder="e.g. AB7K92"
               value={roomCode}
-              onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
-              maxLength={8}
+              onChange={(e) => {
+                let val = e.target.value.trim().toUpperCase();
+                if (val.includes('/ROOM/')) {
+                  val = val.split('/ROOM/').pop()?.split(/[?#/]/)[0].trim().toUpperCase() || val;
+                }
+                setRoomCode(val.slice(0, 10));
+              }}
+              maxLength={200}
               className="font-mono text-center font-bold tracking-widest uppercase text-base"
               required
               autoFocus
@@ -94,8 +103,8 @@ export const JoinRoomPage: React.FC = () => {
               <AvatarPicker selected={avatar} onSelect={setAvatar} />
             </div>
 
-            <Button type="submit" variant="primary" size="lg" className="w-full">
-              Join Game
+            <Button type="submit" variant="primary" size="lg" className="w-full font-black text-base py-3.5 shadow-tactile-md">
+              JOIN GAME
             </Button>
           </form>
         </div>
